@@ -3,6 +3,7 @@ E2 core for Garry's Mod, providing websocket usage in E2
 
 
 needs gwsockets
+https://github.com/FredyH/GWSockets
 
 INSTALLING:
 place the folder containing the lua folder in your garrysmod/addons folder
