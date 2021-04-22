@@ -16,7 +16,6 @@ local run_on = {
 
 __e2setcost( 20 )
 
-print("added wsCreateConnection!")
 e2function void wsCreateConnection( number id, string url )
     local myID = id
     local This = self
@@ -77,6 +76,7 @@ e2function void wsCreateConnection( number id, string url )
 
     socket:open()
 end
+print("| wsCreateConnection 1     |")
 
 e2function void wsCreateConnection( number id, string url, table headers )
     local myID = id
@@ -142,6 +142,8 @@ e2function void wsCreateConnection( number id, string url, table headers )
 
     socket:open()
 end
+
+print("| wsCreateConnection 2     |")
 
 e2function void wsCreateConnection( number id, string url, table headers, table cookies )
     local myID = id
@@ -212,92 +214,99 @@ e2function void wsCreateConnection( number id, string url, table headers, table 
     socket:open()
 end
 
+print("| wsCreateConnection 3     |")
+
 __e2setcost( 5 )
-print("added wsCanCreate!")
 e2function number wsCanCreate()
     self.data.sockets = self.data.sockets or {}
     return table.Count(self.data.sockets) < cvar_maxsockets and 1 or 0
 end
 
-print("added wsClkData!")
+print("| wsCanCreate              |")
+
 e2function number wsDataClk(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].data and 1 or 0
 end
 
-print("| wsClkConnect             |")
+print("| wsDataClk                |")
+
 e2function number wsConnectClk(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].connected and 1 or 0
 end
+print("| wsConnectClk             |")
 
-print("| wsClkDisconnect          |")
 e2function number wsDisconnectClk(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].disconnected and 1 or 0
 end
+print("| wsDisconnectClk          |")
 
-print("| wsClkError               |")
 e2function string wsErrorClk(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].error or ""
 end
+print("| wsErrorClk               |")
 
-print("| wsData                   |")
 e2function string wsGetData(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].msg or ""
 end
+print("| wsGetData                |")
 
-print("| wsURL                    |")
 e2function string wsGetURL(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].url or ""
 end
+print("| wsGetURL                 |")
 
-print("| wsError                  |")
 e2function string wsGetError(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].errormsg or ""
 end
+print("| wsGetError               |")
 
 e2function void wsClearMsgQueue(number id)
 	self.data.sockets = self.data.sockets or {}
     if (!self.data.sockets[id].isConnected) then return end
 	self.data.sockets[id].socket:clearQueue()
 end
+print("| wsClearMsgQueue          |")
 
-print("| wsSend                   |")
 e2function void wsSend(number id, string data)
     self.data.sockets = self.data.sockets or {}
     if (!self.data.sockets[id].isConnected) then return end
     self.data.sockets[id].socket:write(data)
 end
+print("| wsSend                   |")
 
-print("| wsClose                  |")
 e2function void wsClose(number id)
     self.data.sockets = self.data.sockets or {}
     if (!self.data.sockets[id].isConnected) then return end
     self.data.sockets[id].socket:close()
 	self.data.sockets[id] = nil
 end
+print("| wsClose                  |")
+
 e2function void wsForceClose(number id)
     self.data.sockets = self.data.sockets or {}
     if (!self.data.sockets[id].isConnected) then return end
 	self.data.sockets[id].socket:closeNow()
 	self.data.sockets[id] = nil
 end
+print("| wsForceClose             |")
 
-print("| wsConnected              |")
 e2function number wsIsConnected(number id)
     self.data.sockets = self.data.sockets or {}
     return self.data.sockets[id].isConnected and 1 or 0
 end
+print("| wsIsConnected            |")
 
-print("| runOnWS                  |")
 e2function void runOnWS(number shouldRun)
     run_on.ents[self.entity] = (shouldRun != 0) or nil
 end
+print("| runOnWS                  |")
 
 registerCallback( "destruct", function( self )
     self.data.sockets = self.data.sockets or {}
@@ -307,7 +316,7 @@ registerCallback( "destruct", function( self )
     run_on.ents[self.entity] = nil
 end )
 
-print("+--------------------------+")
+print("<-------------------------->")
 print("| Finished loading.        |")
-print("+--------------------------+")
+print("<-------------------------->")
 
