@@ -6,6 +6,4 @@ needs gwsockets
 https://github.com/FredyH/GWSockets
 
 INSTALLING:
-place the folder containing the lua folder in your garrysmod/addons folder
-
-if it doesn't work then i'm a dumbass and you need to move aewebsocketcore/lua/bin files into garrysmod/lua/bin
+move aewebsocketcore/lua/bin files into garrysmod/lua/bin
